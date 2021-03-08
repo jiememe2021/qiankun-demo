@@ -6,6 +6,11 @@ const microApps = [
     name: 'category-app',
     entry: '//localhost:7777/subapp/category-app/',
     activeRule: '/category-app'
+  },
+  {
+    name: 'vue3-app',
+    entry: '//localhost:7779/subapp/vue3-app/',
+    activeRule: '/vue3-app'
   }
 ]
 

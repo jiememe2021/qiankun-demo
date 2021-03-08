@@ -54,5 +54,5 @@ registerMicroApps(apps, {
     }
   ]
 })
-setDefaultMountApp('/category-app')
+setDefaultMountApp('/vue3-app')
 start()

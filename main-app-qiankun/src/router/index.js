@@ -7,11 +7,16 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    redirect: '/category-app'
+    redirect: '/vue3-app'
   },
   {
     path: '/category-app',
-    name: 'Category',
+    name: 'category',
+    component: () => import(/* webpackChunkName: "Category" */ '@/views/Home.vue')
+  },
+  {
+    path: '/vue3-app',
+    name: 'vue3App',
     component: () => import(/* webpackChunkName: "Category" */ '@/views/Home.vue')
   },
 ]
