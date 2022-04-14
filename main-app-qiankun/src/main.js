@@ -1,6 +1,12 @@
+/*
+ * @Author: Ashley.Liu
+ * @Date: 2022-04-11 10:11:12
+ * @LastEditTime: 2022-04-11 11:23:54
+ * @Description: desc
+ */
 import Vue from 'vue'
 import App from './App.vue'
-import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
+import { registerMicroApps, start, setDefaultMountApp, initGlobalState } from 'qiankun'
 import microApps from './plugins/micro-apps'
 import 'nprogress/nprogress.css'
 import VueRouter from 'vue-router'
@@ -55,4 +61,22 @@ registerMicroApps(apps, {
   ]
 })
 setDefaultMountApp('/category-app')
+// 初始化 state
+let state = {
+  testCommunication: '123'
+}
+const actions = initGlobalState(state);
+actions.onGlobalStateChange((state, prev) => {
+  // state: 变更后的状态; prev 变更前的状态
+  console.log(state, prev);
+Vue.prototype.$GlobalState.state = state
+});
+
+Vue.prototype.$GlobalState = {
+  onGlobalStateChange: actions.onGlobalStateChange,
+  setGlobalState: actions.setGlobalState,
+  state
+}
+console.log('init GLOBAL STATE', Vue.prototype.$GlobalState)
+
 start()

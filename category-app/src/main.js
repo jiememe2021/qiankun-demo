@@ -1,3 +1,9 @@
+/*
+ * @Author: Ashley.Liu
+ * @Date: 2022-04-11 10:11:12
+ * @LastEditTime: 2022-04-11 10:39:40
+ * @Description: desc
+ */
 import './public-path.js'
 import Vue from 'vue'
 import App from './App.vue'
@@ -39,7 +45,14 @@ export async function bootstrap () {
 
 export async function mount (props) {
   console.log('[vue] props from main framework', props)
-
+  props.onGlobalStateChange((state, prev) => {
+    // state: 变更后的状态; prev 变更前的状态
+    console.log(state, prev);
+  });
+  Vue.prototype.$GlobalState = {
+    setGlobalState: props.setGlobalState,
+    state: props.getGlobalState()
+  }
   render(props)
 }
 

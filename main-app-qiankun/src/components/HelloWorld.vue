@@ -1,6 +1,12 @@
+<!--
+ * @Author: Ashley.Liu
+ * @Date: 2022-04-11 10:11:12
+ * @LastEditTime: 2022-04-12 14:34:25
+ * @Description: desc
+-->
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ testCommunication }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -35,6 +41,52 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data(){
+    return {
+      testCommunication: '',
+      GlobalState: {
+        testCommunication: ''
+      }
+    }
+  },
+  // computed:{
+  //   GlobalState(){
+  //     return this.$GlobalState
+  //   },
+  //   testCommunication () {
+  //     return this.GlobalState?.state?.testCommunication || ''
+  //   }
+  // },
+  watch:{
+    // 'GlobalState.state':{
+    //   deep: true,
+    //   handler(){
+    //     console.log('change')
+    //   }
+    // }
+    GlobalState:{
+      deep: true,
+      handler(){
+        console.log('change')
+      }
+    }
+  },
+  created(){
+    this.$nextTick(()=>{
+    this.GlobalState = this.$GlobalState.state
+      if(this.$GlobalState){
+        this.$GlobalState.onGlobalStateChange((state)=>{
+          this.$GlobalState.state = state
+          this.testCommunication = state.testCommunication
+        })
+      }
+    })
+  },
+  methods:{
+    getTest(){
+      return this.GlobalState?.state?.testCommunication || ''
+    }
   }
 }
 </script>
